@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Shorts Generator - Create Viral Videos</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="style.css?v=14">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background Effects -->
+    <div class="background-effects">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">🎬</div>
+                <div class="brand-text">
+                    <span class="brand-name">AI Shorts</span>
+                    <span class="brand-tag">Generator</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#generator" class="nav-link active">Create</a>
+                <a href="#history" class="nav-link">History</a>
+                <a href="#niches" class="nav-link">Niches</a>
+            </div>
+            <div class="nav-status">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Checking...</span>
+                <button class="nav-logout" id="logoutBtn" title="Log out">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Generator Section -->
+        <section id="generator" class="section active">
+            <div class="container">
+                <div class="generator-layout">
+                    <!-- Left: Preview Panel -->
+                    <div class="preview-panel">
+                        <div class="preview-header">
+                            <h2>Preview</h2>
+                            <div class="preview-layout-hint">
+                                <div class="layout-diagram">
+                                    <div class="layout-section text-area">Your Story</div>
+                                    <div class="layout-section video-area">Video</div>
+                                    <div class="layout-section watermark-area">Logo</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-output" id="previewOutput">
+                            <div class="preview-empty" id="previewEmpty">
+                                <div class="empty-icon">🎥</div>
+                                <div class="empty-text">Your viral Short will appear here</div>
+                                <div class="empty-hint">Upload a video and write your story to begin</div>
+                            </div>
+                            <div class="preview-result" id="previewResult" style="display:none">
+                                <!-- Phone Frame Mockup -->
+                                <div class="phone-frame">
+                                    <div class="phone-screen">
+                                        <video id="resultVideo" controls></video>
+                                    </div>
+                                </div>
+                                <div class="result-actions">
+                                    <a class="btn-download" id="downloadBtn" download>
+                                        <span>⬇️</span> Download Video
+                                    </a>
+                                    <button class="btn-share" id="copyLinkBtn">
+                                        <span>🔗</span> Copy Link
+                                    </button>
+                                </div>
+                                <div class="result-details" id="resultDetails"></div>
+
+                                <!-- SEO Pack: title / description / hashtags / tags -->
+                                <div class="seo-box" id="seoBox" style="display:none">
+                                    <div class="seo-box-header">
+                                        <div class="seo-box-heading">
+                                            <span class="seo-box-icon">🚀</span>
+                                            <span class="seo-box-title">SEO Pack</span>
+                                            <span class="seo-box-sub">Ready to paste into YouTube</span>
+                                        </div>
+                                        <button type="button" class="seo-copy-all" id="seoCopyAllBtn">📋 Copy All</button>
+                                    </div>
+
+                                    <div class="seo-field">
+                                        <div class="seo-field-bar">
+                                            <span class="seo-field-label">🎯 Title</span>
+                                            <span class="seo-char-count" id="seoTitleCount">0/100</span>
+                                            <button type="button" class="seo-copy-btn" data-field="title">Copy</button>
+                                        </div>
+                                        <div class="seo-value seo-value-title" id="seoTitleValue"></div>
+                                    </div>
+
+                                    <div class="seo-field">
+                                        <div class="seo-field-bar">
+                                            <span class="seo-field-label">📝 Description</span>
+                                            <span class="seo-char-count" id="seoDescCount">0/5000</span>
+                                            <button type="button" class="seo-copy-btn" data-field="description">Copy</button>
+                                        </div>
+                                        <div class="seo-value seo-value-desc" id="seoDescValue"></div>
+                                    </div>
+
+                                    <div class="seo-field">
+                                        <div class="seo-field-bar">
+                                            <span class="seo-field-label">#️⃣ Hashtags</span>
+                                            <button type="button" class="seo-copy-btn" data-field="hashtags">Copy</button>
+                                        </div>
+                                        <div class="seo-chips" id="seoHashtags"></div>
+                                    </div>
+
+                                    <div class="seo-field">
+                                        <div class="seo-field-bar">
+                                            <span class="seo-field-label">🏷️ Tags</span>
+                                            <span class="seo-char-count" id="seoTagsCount">0/500</span>
+                                            <button type="button" class="seo-copy-btn" data-field="tags">Copy</button>
+                                        </div>
+                                        <div class="seo-chips" id="seoTags"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="preview-loading" id="previewLoading" style="display:none">
+                                <div class="loading-animation">
+                                    <div class="loading-step active" data-step="1">📝 Analyzing story...</div>
+                                    <div class="loading-step" data-step="2">🤖 Generating viral hook...</div>
+                                    <div class="loading-step" data-step="3">🎬 Processing video...</div>
+                                    <div class="loading-step" data-step="4">💬 Adding subtitles...</div>
+                                    <div class="loading-step" data-step="5">✨ Composing final Short...</div>
+                                </div>
+                                <div class="loading-bar">
+                                    <div class="loading-progress" id="loadingProgress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Input Form -->
+                    <div class="form-panel">
+                        <div class="panel-header">
+                            <h1>Create Viral Short 🚀</h1>
+                            <p>Upload a video, add your story, and get a viral-ready Short in seconds</p>
+                        </div>
+
+                        <form id="generatorForm" class="generator-form">
+                            <!-- Section: Media Uploads -->
+                            <div class="form-section">
+                                <div class="form-section-header">
+                                    <div class="form-section-icon">📹</div>
+                                    <span class="form-section-title">Media Uploads</span>
+                                </div>
+
+                            <!-- Video Upload -->
+                            <div class="form-group">
+                                <label class="form-label">Video Source</label>
+
+                                <!-- Paste a link (YouTube / Shorts / Instagram / TikTok) -->
+                                <div class="url-fetch" id="urlFetch">
+                                    <div class="url-input-wrap">
+                                        <span class="url-input-icon">🔗</span>
+                                        <input type="text" class="url-input" id="videoUrlInput"
+                                               placeholder="Paste a YouTube / Shorts / Instagram / TikTok link"
+                                               autocomplete="off" spellcheck="false">
+                                        <button type="button" class="url-clear" id="urlClearBtn" title="Clear" style="display:none">✕</button>
+                                    </div>
+                                    <button type="button" class="btn-fetch" id="fetchUrlBtn">
+                                        <span class="btn-fetch-content" id="fetchUrlLabel">⬇️ Fetch Video</span>
+                                        <span class="btn-fetch-loading" id="fetchUrlLoader" style="display:none">
+                                            <span class="spinner spinner-sm"></span>
+                                            <span id="fetchUrlLoaderText">Downloading...</span>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div class="url-hint">
+                                    Downloads up to 1080p, then the ✂️ crop tool opens on the downloaded video.
+                                    Only use clips you own or have the rights to use.
+                                </div>
+
+                                <div class="url-divider"><span>or upload a file</span></div>
+
+                                <div class="upload-zone" id="uploadZone">
+                                    <input type="file" id="videoInput" accept="video/*" hidden>
+                                    <div class="upload-placeholder" id="uploadPlaceholder">
+                                        <div class="upload-icon">📹</div>
+                                        <div class="upload-text">
+                                            <span class="upload-title">Drop your video here</span>
+                                            <span class="upload-subtitle">or click to browse</span>
+                                        </div>
+                                        <div class="upload-formats">MP4, MOV, AVI, MKV, WEBM</div>
+                                    </div>
+                                    <div class="upload-preview" id="uploadPreview" style="display:none">
+                                        <video id="previewVideo" controls></video>
+                                        <div class="preview-info">
+                                            <span id="fileName"></span>
+                                            <button type="button" class="btn-icon" id="removeVideo" title="Remove video">✕</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Background Upload -->
+                            <div class="form-group">
+                                <label class="form-label">Background (Image or Video)</label>
+                                <div class="bg-upload-zone" id="bgUploadZone">
+                                    <input type="file" id="bgInput" accept="image/*,video/*" hidden>
+                                    <div class="bg-placeholder" id="bgPlaceholder">
+                                        <div class="bg-icon">🖼️</div>
+                                        <div class="bg-text">
+                                            <span class="bg-title">Add a background</span>
+                                            <span class="bg-subtitle">Image or video (loops automatically)</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-preview" id="bgPreview" style="display:none">
+                                        <img id="bgPreviewImg" alt="Background" style="display:none">
+                                        <video id="bgPreviewVideo" muted loop style="display:none"></video>
+                                        <div class="bg-preview-info">
+                                            <span id="bgFileName"></span>
+                                            <button type="button" class="btn-icon" id="removeBg" title="Remove background">✕</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Channel Branding -->
+                            <div class="form-group">
+                                <label class="form-label">Channel Branding</label>
+                                <div class="branding-row">
+                                    <div class="branding-logo-upload">
+                                        <div class="branding-logo-zone" id="logoUploadZone">
+                                            <input type="file" id="logoInput" accept="image/*" hidden>
+                                            <div class="logo-placeholder" id="logoPlaceholder">
+                                                <span class="logo-upload-icon">+</span>
+                                                <span class="logo-upload-text">Logo</span>
+                                            </div>
+                                            <div class="logo-preview" id="logoPreview" style="display:none">
+                                                <img id="logoPreviewImg" alt="Logo">
+                                                <button type="button" class="logo-remove" id="removeLogo">x</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="branding-fields">
+                                        <input type="text" class="branding-input" id="channelName" 
+                                               placeholder="Channel Name" value="YourChannel">
+                                        <input type="text" class="branding-input" id="channelHandle" 
+                                               placeholder="@handle" value="@yourchannel">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Story Text -->
+                            <div class="form-group">
+                                <label class="form-label">Your Story</label>
+                                <div class="textarea-wrapper">
+                                    <textarea 
+                                        id="storyInput" 
+                                        rows="4" 
+                                        placeholder="Paste your story here...&#10;&#10;Example: During the filming of S.W.A.T (2003), the director asked Michelle Rodriguez to prank Samuel L. Jackson. What happened next left the entire crew in stitches..."
+                                        maxlength="500"
+                                    ></textarea>
+                                    <div class="textarea-footer">
+                                        <span id="charCount">0/500</span>
+                                        <button type="button" class="btn-ai" id="rewriteBtn" disabled>
+                                            ✨ AI Rewrite
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI Hook Preview -->
+                            <div class="hook-preview" id="hookPreview" style="display:none">
+                                <div class="hook-header">
+                                    <span>🔥 Viral Hook</span>
+                                    <button type="button" class="btn-icon-small" id="regenerateHook" title="Regenerate">🔄</button>
+                                </div>
+                                <div class="hook-content" id="hookContent"></div>
+                                <div class="hook-meta">
+                                    <span class="niche-badge" id="nicheBadge">🎬 Movie</span>
+                                    <span class="hashtags" id="hashtags"></span>
+                                </div>
+                            </div>
+
+                            </div>
+                            <!-- END Section: Media Uploads -->
+
+                            <!-- Section: Options & Design -->
+                            <div class="form-section">
+                                <div class="form-section-header">
+                                    <div class="form-section-icon">⚙️</div>
+                                    <span class="form-section-title">Options & Design</span>
+                                    <span class="form-section-subtitle">Customize your Short</span>
+                                </div>
+
+                            <!-- Options -->
+                            <div class="form-group">
+                                <label class="form-label">Options</label>
+                                <div class="options-row">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="addSubtitles" checked>
+                                        <span class="toggle-slider"></span>
+                                        <span class="toggle-label">Generate Subtitles</span>
+                                    </label>
+                                    <button type="button" class="btn-crop-toggle" id="cropToggleBtn" disabled>
+                                        ✂️ Crop Video
+                                    </button>
+                                    <div class="fit-mode-group">
+                                        <button type="button" class="fit-mode-btn active" data-mode="fit">📐 Fit</button>
+                                        <button type="button" class="fit-mode-btn" data-mode="cover">🔲 Cover</button>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="pitchShift">
+                                        <span class="toggle-slider"></span>
+                                        <span class="toggle-label">🎵 Pitch Shift</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Crop Modal -->
+                            <div class="crop-modal" id="cropModal" style="display:none">
+                                <div class="crop-modal-header">
+                                    <span>✂️ Crop Video</span>
+                                    <div class="crop-actions">
+                                        <span class="crop-coords" id="cropCoords">Drag handles to select area</span>
+                                        <button type="button" class="crop-btn-cancel" id="cropCancelBtn">✕ Cancel</button>
+                                    </div>
+                                </div>
+                                <div class="crop-container" id="cropContainer">
+                                    <div class="crop-video-wrapper" id="cropVideoWrapper">
+                                        <video id="cropVideo" class="crop-video"></video>
+                                        <div class="crop-overlay" id="cropOverlay">
+                                            <div class="crop-box" id="cropBox">
+                                                <div class="crop-handle crop-handle-nw"></div>
+                                                <div class="crop-handle crop-handle-ne"></div>
+                                                <div class="crop-handle crop-handle-sw"></div>
+                                                <div class="crop-handle crop-handle-se"></div>
+                                            </div>
+                                        </div>
+                                        <!-- Floating action buttons directly on the video wrapper -->
+                                        <div class="crop-actions-floating" id="cropActionsFloating">
+                                            <button type="button" class="crop-btn-apply" id="cropApplyBtn">✓ Apply Crop</button>
+                                        </div>
+                                    </div>
+                                    <!-- 🐛 Debug Panel - shows exact crop values in real time -->
+                                    <div class="crop-debug" id="cropDebug">
+                                        <div class="crop-debug-title">🐛 CROP DEBUG</div>
+                                        <div id="cropDebugContent">Waiting for video...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- END Section: Options & Design -->
+
+                            <!-- Generate Button -->
+                            <button type="submit" class="btn-generate" id="generateBtn" disabled>
+                                <span class="btn-content">
+                                    <span class="btn-icon">🎬</span>
+                                    <span class="btn-text">Generate Viral Short</span>
+                                </span>
+                                <div class="btn-loader" style="display:none">
+                                    <div class="spinner"></div>
+                                    <span>Processing...</span>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="history" class="section">
+            <div class="container">
+                <div class="panel-header">
+                    <h1>Export History 📋</h1>
+                    <p>Your previously generated Shorts</p>
+                </div>
+                <div class="history-grid" id="historyGrid">
+                    <div class="history-empty">
+                        <div class="empty-icon">📂</div>
+                        <div class="empty-text">No exports yet</div>
+                        <div class="empty-hint">Generate your first Short to see it here</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Niches Section -->
+        <section id="niches" class="section">
+            <div class="container">
+                <div class="panel-header">
+                    <h1>Viral Niches 📊</h1>
+                    <p>Choose a niche for maximum reach and engagement</p>
+                </div>
+                <div class="niches-grid" id="nichesGrid">
+                    <!-- Rendered by JS -->
+                </div>
+                <div class="niche-tip">
+                    <div class="tip-icon">💡</div>
+                    <div class="tip-content">
+                        <strong>Pro Tip:</strong> Movie Facts + AI Voice + Screenshot Style = 
+                        <span class="highlight">Millions of views</span>. 
+                        This combination has the highest viral potential on YouTube Shorts.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js?v=14"></script>
+</body>
+</html>

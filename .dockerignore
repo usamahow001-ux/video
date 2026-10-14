@@ -1,0 +1,25 @@
+# Python environment & cache
+backend/venv/
+backend/__pycache__/
+backend/*/__pycache__/
+*.pyc
+*.pyo
+
+# App temporary and output data
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/output/*
+!backend/output/.gitkeep
+backend/database.db*
+backend/ffmpeg_bin/
+backend/*.log
+backend/server_*.txt
+tunnel_*.txt
+*.pid
+
+# Git & IDE
+.git/
+.github/
+.vscode/
+.idea/
+deploy/

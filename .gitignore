@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# App runtime data (don't commit uploads, generated videos, DB or logs)
+backend/uploads/
+backend/output/
+backend/database.db
+backend/database.db-*
+backend/*.log
+backend/server_*.txt
+backend/server_pid.txt
+tunnel_log.txt
+tunnel_pid.txt
+server_pid.txt
+*.pid
+backend/ffmpeg_bin/
+*.srt
+
+# Local env / secrets
+.env
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
