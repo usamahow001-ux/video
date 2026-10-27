@@ -76,9 +76,12 @@ if ($url) {
     Write-Host ""
     Write-Host "  $url" -ForegroundColor White -BackgroundColor DarkGreen
     Write-Host ""
+    Write-Host "  Password: Pass@123" -ForegroundColor Cyan
+    Write-Host ""
     Write-Host "  Keep this PC on + tunnel running to stay online" -ForegroundColor Yellow
     Write-Host "  To stop the website, run:  .\stop_tunnel.ps1" -ForegroundColor Yellow
     Write-Host "=============================================" -ForegroundColor Green
+    Start-Process $url
 } else {
     Write-Host "[ERROR] Could not get the link. Check tunnel_log.txt" -ForegroundColor Red
     Get-Content $logFile -Tail 10

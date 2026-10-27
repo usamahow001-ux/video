@@ -17,10 +17,6 @@ if %errorlevel% neq 0 (
     echo [OK] Server is already running on port 8000.
 )
 
-echo.
 echo [2/2] Starting secure live internet tunnel...
-echo (You can close your laptop lid - the site stays online!)
-echo.
-
-ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -R 80:127.0.0.1:8000 nokey@localhost.run
+powershell -ExecutionPolicy Bypass -File .\start_tunnel.ps1
 pause
